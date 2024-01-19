@@ -29,15 +29,16 @@ const Heading = (props: Props) => {
       {isAuthenticated && !isLoading && (
         <Button asChild>
           <div className="flex items-center justify-start gap-2">
-            <Link href={"/document"}>Enter Notion</Link>
+            <Link href={"/documents"}>Enter Notion</Link>
             <ArrowRight className="h-4 w-4 ml-2" />
           </div>
         </Button>
       )}
       {!isAuthenticated && !isLoading && (
         <SignInButton mode="modal">
-          <Button>Get Notion</Button>
-          <ArrowRight className="h-4 w-4 ml-4" />
+          <>
+            <span>Get Notion</span>
+          </>
         </SignInButton>
       )}
     </div>
