@@ -1,6 +1,12 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { ChevronLeft, MenuIcon, PlusCircle, Search } from "lucide-react";
+import {
+  ChevronLeft,
+  MenuIcon,
+  PlusCircle,
+  Search,
+  Settings,
+} from "lucide-react";
 import { usePathname } from "next/navigation";
 import React, { ElementRef, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
@@ -9,6 +15,7 @@ import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import Item from "./Item";
 import { toast } from "sonner";
+import DocumentList from "./DocumentList";
 type Props = {};
 
 const Navigation = (props: Props) => {
@@ -19,7 +26,7 @@ const Navigation = (props: Props) => {
   const navbarRef = useRef<ElementRef<"div">>(null);
   const [isResetting, setIsResetting] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const documents = useQuery(api.documents.get);
+  // const documents = useQuery(api.documents.get);
   const create = useMutation(api.documents.create);
   useEffect(() => {
     if (isMobile) {
@@ -96,7 +103,7 @@ const Navigation = (props: Props) => {
       <aside
         ref={sidebarRef}
         className={cn(
-          "group/sidebar h-full bg-neutral-200 overflow-y-auto relative flex flex-col z-[99999] w-60",
+          "group/sidebar h-full bg-neutral-500 overflow-y-auto relative flex flex-col z-[99999] w-60",
           isResetting && "transition-all ease-in-out duration-300",
           isMobile && "w-0"
         )}
@@ -114,12 +121,11 @@ const Navigation = (props: Props) => {
         <div>
           <UserItem />
           <Item label="Search" icon={Search} isSearch onClick={() => {}} />
+          <Item label="Setting" icon={Settings} onClick={() => {}} />
           <Item onClick={handleCreate} label="new page" icon={PlusCircle} />
         </div>
         <div className="mt-4">
-          {documents?.map((doc) => (
-            <p key={doc._id}>{doc.title}</p>
-          ))}
+          <DocumentList />
         </div>
         <div
           onMouseDown={handleMouseDown}
