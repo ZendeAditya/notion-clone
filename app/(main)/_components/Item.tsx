@@ -35,7 +35,7 @@ interface ItemProps {
   level?: number;
   onExapand?: () => void;
   label: string;
-  onClick: () => void;
+  onClick?: () => void;
   icon: LucideIcon;
 }
 const Item = ({
@@ -57,7 +57,7 @@ const Item = ({
   const onArchive = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.stopPropagation();
     if (!id) return;
-    const promise = archive({ id } );
+    const promise = archive({ id });
 
     toast.promise(promise, {
       loading: "Moving to trash...",
