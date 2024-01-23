@@ -24,6 +24,7 @@ import Item from "./Item";
 import { toast } from "sonner";
 import DocumentList from "./DocumentList";
 import TrashBox from "./TrashBox";
+import { useSearch } from "@/hooks/UseSearch";
 type Props = {};
 
 const Navigation = (props: Props) => {
@@ -34,6 +35,8 @@ const Navigation = (props: Props) => {
   const navbarRef = useRef<ElementRef<"div">>(null);
   const [isResetting, setIsResetting] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const search = useSearch();
+
   // const documents = useQuery(api.documents.get);
   const create = useMutation(api.documents.create);
   useEffect(() => {
@@ -128,7 +131,7 @@ const Navigation = (props: Props) => {
         </div>
         <div>
           <UserItem />
-          <Item label="Search" icon={Search} isSearch onClick={() => {}} />
+          <Item label="Search" icon={Search} isSearch onClick={search.onOpen} />
           <Item label="Setting" icon={Settings} onClick={() => {}} />
           <Item onClick={handleCreate} label="new page" icon={PlusCircle} />
         </div>
